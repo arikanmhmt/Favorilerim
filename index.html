@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <link rel="icon" href="icon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorilerim</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --hover-color: #1d4ed8;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-color: #1a1a1a;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition-base: all 0.3s ease;
+        }
+
+        body {
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            background: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0;
+            list-style: none;
+            margin: 0 auto 2rem auto;
+            max-width: 1200px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-item {
+            background: var(--card-background);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: var(--transition-base);
+        }
+
+        .project-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .project-link {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .project-link::after {
+            content: "→";
+            opacity: 0;
+            transition: var(--transition-base);
+            transform: translateX(-10px);
+        }
+
+        .project-item:hover .project-link::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition-base);
+            display: block;
+            margin: 2rem auto;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .project-list {
+                grid-template-columns: 1fr;
+                padding: 0 0.5rem;
+            }
+
+            body {
+                padding: 1rem;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #1a1a1a;
+                --card-background: #2d2d2d;
+                --primary-color: #60a5fa;
+                --hover-color: #3b82f6;
+                --text-color: #ffffff;
+            }
+
+            .project-item::before {
+                background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Favorilerim</h1>
+
+    <ul class="project-list">
+        <li class="project-item">
+            <a href="http://192.168.1.1" class="project-link">
+                <span>🌐 Zyxel Modem</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://my.nextdns.io/b1735a/logs" class="project-link">
+                <span>🛡️ NextDNS</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://speed.cloudflare.com" class="project-link">
+                <span>⚡ Cloudflare Speed Test</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://www.servercontrolpanel.de/SCP/Home" class="project-link">
+                <span>🖥️ Server Control Panel</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://help.nextdns.io" class="project-link">
+                <span>❓ NextDNS Help</span>
+            </a>
+        </li>
+    </ul>
+
+    <button onclick="toggleAdultLinks()" id="toggleButton">🔞 Bağlantıları Göster</button>
+    
+    <ul id="adult-links" class="project-list hidden">
+        <li class="project-item">
+            <a href="https://fxggxt.com" class="project-link">
+                <span>🔞 FXGGXT</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://tr.xhamster.com" class="project-link">
+                <span>🔞 xHamster</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://machotube.tv" class="project-link">
+                <span>🔞 MachoTube</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://gaymaletube.com" class="project-link">
+                <span>🔞 Gay Male Tube</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://xvideos.com" class="project-link">
+                <span>🔞 XVIDEOS.COM</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://manporn.xxx" class="project-link">
+                <span>🔞 Man Porn XXX</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://icegay.tv" class="project-link">
+                <span>🔞 IceGay.tv</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://ww1.hutgay.com" class="project-link">
+                <span>🔞 HutGay</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://gayfuckporn.com" class="project-link">
+                <span>🔞 Gay Fuck Porn</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://gayvids.tube" class="project-link">
+                <span>🔞 GayVids.tube</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://TheGay.com" class="project-link">
+                <span>🔞 TheGay.com</span>
+            </a>
+        </li>
+        <li class="project-item">
+            <a href="https://lethimhit.com" class="project-link">
+                <span>🔞 Let Him Hit</span>
+            </a>
+        </li>
+    </ul>
+
+    <script>
+        function toggleAdultLinks() {
+            const adultLinks = document.getElementById('adult-links');
+            const button = document.getElementById('toggleButton');
+            adultLinks.classList.toggle('hidden');
+            button.textContent = adultLinks.classList.contains('hidden') 
+                ? '🔞 Bağlantıları Göster' 
+                : '🔞 Bağlantıları Gizle';
+        }
+    </script>
+</body>
+</html>
